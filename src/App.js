@@ -9,6 +9,7 @@ import About from "./components/About";
 const App = () => {
   const [showAddReminder, setShowAddReminder] = useState(false);
   const [reminders, setReminders] = useState([]);
+  const REMINDER_API = "https://h-rem-tracker-service.herokuapp.com";
 
   useEffect(() => {
     // const getReminders = async () => {
@@ -21,14 +22,14 @@ const App = () => {
 
   // Fetch Reminders
   const fetchReminders = async () => {
-    const res = await fetch("http://localhost:5000/reminders");
+    const res = await fetch(`${REMINDER_API}/reminders`);
     const data = await res.json();
     setReminders(data);
   };
 
   // Fetch Reminder
   const fetchReminder = async (id) => {
-    const res = await fetch(`http://localhost:5000/reminders/${id}`);
+    const res = await fetch(`${REMINDER_API}/reminders/${id}`);
     const data = await res.json();
 
     return data;
@@ -36,7 +37,7 @@ const App = () => {
 
   // Add Reminder
   const addReminder = async (reminder) => {
-    const res = await fetch("http://localhost:5000/reminders", {
+    const res = await fetch(`${REMINDER_API}/reminders`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -56,7 +57,7 @@ const App = () => {
 
   // Delete Reminder
   const deleteReminder = async (id) => {
-    await fetch(`http://localhost:5000/reminders/${id}`, {
+    await fetch(`${REMINDER_API}/reminders/${id}`, {
       method: "DELETE",
     });
 
@@ -71,7 +72,7 @@ const App = () => {
       highlight: !reminderToToggle.highlight,
     };
 
-    const res = await fetch(`http://localhost:5000/reminders/${id}`, {
+    const res = await fetch(`${REMINDER_API}/reminders/${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -84,7 +85,7 @@ const App = () => {
     setReminders(
       reminders.map((reminder) =>
         reminder.id === id
-          ? { ...reminder, reminder: data.highlight }
+          ? { ...reminder, highlight: data.highlight }
           : reminder
       )
     );
