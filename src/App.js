@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Reminders from "./components/Reminders";
@@ -92,7 +92,7 @@ const App = () => {
   };
 
   return (
-    <Router>
+    <HashRouter basename="/">
       <div className="container">
         <Header
           onAdd={() => setShowAddReminder(!showAddReminder)}
@@ -119,7 +119,7 @@ const App = () => {
         <Route path="/about" component={About} />
         <Footer />
       </div>
-    </Router>
+    </HashRouter>
   );
 };
 
